@@ -1,16 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
 package br.ufjf.dcc.dcc025.comercioeletronico;
 
-/**
- *
- * @author isabe
- */
-public class ComercioEletronico {
+import br.ufjf.dcc.dcc025.comercioeletronico.Entities.Produtos.Eletronico;
 
-    public static void main(String[] args) {
+public class ComercioEletronico 
+{
+
+    public static void main(String[] args) 
+    {  
+        Eletronico celular = new Eletronico();
+        celular.garantiaMeses = 12;
+        
         System.out.println("Hello World!");
     }
 }
