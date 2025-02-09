@@ -32,7 +32,7 @@ public class GestorVendas implements Relatorio
         System.out.println("""
                            ======================================
                            >> RELATÓRIO DE VENDAS
-                           
+
                            """);
 
         double totalArrecadado = 0;
@@ -40,7 +40,7 @@ public class GestorVendas implements Relatorio
 
         for (Venda venda : vendas)
         {
-            totalArrecadado += venda.calcularTotal();
+            totalArrecadado += venda.calcularTotalComDesconto();
         }
 
         System.out.println(">> Total de vendas realizadas: " + totalVendas);

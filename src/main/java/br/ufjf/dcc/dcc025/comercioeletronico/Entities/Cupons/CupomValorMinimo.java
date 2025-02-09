@@ -3,7 +3,6 @@ package br.ufjf.dcc.dcc025.comercioeletronico.Entities.Cupons;
 
 import br.ufjf.dcc.dcc025.comercioeletronico.Exceptions.CupomInvalidoException;
 
-
 public class CupomValorMinimo extends Cupom
 {
     public double valorMinimo = 200;
@@ -22,11 +21,15 @@ public class CupomValorMinimo extends Cupom
     public CupomValorMinimo(int id, double percentualDesconto, boolean ativo, double valorMinimo) throws CupomInvalidoException 
     {
         super(id, percentualDesconto, ativo);
+        if (valorMinimo < 0) 
+        {
+            throw new CupomInvalidoException("O valor mínimo não pode ser negativo.");
+        }
         this.valorMinimo = valorMinimo;
     }
   
-    public boolean valorMinimoAtingido(double valorMinimo)
+    public boolean valorMinimoAtingido(double total)
     {
-        return valorMinimo >= this.valorMinimo;
+        return total >= this.valorMinimo;
     }
 }

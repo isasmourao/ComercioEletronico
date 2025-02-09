@@ -20,7 +20,7 @@ public class Venda
         this.cupomAplicado = cupomAplicado;
     }
 
-    public double calcularTotal() 
+    public double calcularTotalBruto() 
     {
         double total = 0.0;
         
@@ -29,34 +29,31 @@ public class Venda
             total += produto.getPreco();
         }
 
+        return total;
+    }
+
+    public double calcularTotalComDesconto() 
+    {
+        double total = calcularTotalBruto();
+
         if (cupomAplicado != null && cupomAplicado.ativo) 
         {
-            double desconto = 0.0;
-
-            switch (cupomAplicado)
-            {
-                case CupomQuantidadeLimitada cupom -> 
-                {
+            switch (cupomAplicado) {
+                case CupomQuantidadeLimitada cupom -> {
                     if (!cupom.atingiuMaximoUtilizacoes())
                     {
-                        desconto = total * (cupom.percentualDesconto / 100);
-                        cupom.utilizarCupom();
+                        total -= total * (cupom.percentualDesconto / 100.0);
+                        cupom.utilizarCupom(); 
                     }
                 }
-                case CupomValorMinimo cupom -> 
-                {
+                case CupomValorMinimo cupom -> {
                     if (cupom.valorMinimoAtingido(total))
                     {
-                        desconto = total * (cupom.percentualDesconto / 100);
+                        total -= total * (cupom.percentualDesconto / 100.0);
                     }
                 }
-                default -> 
-                {
-                    desconto = total * (cupomAplicado.percentualDesconto / 100);
-                }
+                default -> total -= total * (cupomAplicado.percentualDesconto / 100.0);
             }
-
-            total -= desconto;
         }
 
         return total;
@@ -80,21 +77,22 @@ public class Venda
 
         System.out.println("--------------------------------------");
 
-        double totalSemDesconto = calcularTotal();
-        double descontoAplicado = 0.0;
+        double totalSemDesconto = calcularTotalBruto();
+        double totalComDesconto = calcularTotalComDesconto();
+        double descontoAplicado = totalSemDesconto - totalComDesconto;
 
         if (cupomAplicado != null && cupomAplicado.ativo) 
         {
-            descontoAplicado = (totalSemDesconto * (cupomAplicado.percentualDesconto / 100));
             System.out.println(">> Cupom aplicado: " + cupomAplicado.percentualDesconto + "% de desconto");
             System.out.println(">> Valor do desconto: R$ " + String.format("%.2f", descontoAplicado));
+            System.out.println(">> Total final: R$ " + String.format("%.2f", totalComDesconto));
         } 
         else 
         {
             System.out.println(">> Nenhum cupom aplicado.");
+            System.out.println(">> Total final: R$ " + String.format("%.2f", totalSemDesconto));
         }
 
-        System.out.println(">> Total final: R$ " + String.format("%.2f", totalSemDesconto - descontoAplicado));
         System.out.println("======================================");
     }
 }

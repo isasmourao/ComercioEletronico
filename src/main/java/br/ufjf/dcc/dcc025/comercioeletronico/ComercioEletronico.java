@@ -43,19 +43,15 @@ public class ComercioEletronico
         Eletronico smartphone = new Eletronico(3, "Smartphone XYZ", 2000.0, 24);   
         
         Cupom cupomDesconto = new Cupom(1, 10.0, true);
-        CupomValorMinimo cupomMinimo = new CupomValorMinimo();
+        CupomValorMinimo cupomMinimo1 = new CupomValorMinimo(4, 5.0, true, 1);
+        CupomValorMinimo cupomMinimo2 = new CupomValorMinimo(4, 30.0, true, 1);
         CupomQuantidadeLimitada cupomLimitado = new CupomQuantidadeLimitada(2, 10.0, true, 2); 
         
-        caso1_CompraSemCupom(gestor, calca, chocolate);
-        
-        caso2_CompraComCupom10Valido(gestor, calca, chocolate, cupomDesconto);
-        
-        caso3_CompraComCupomValorMinimoNaoAtingido(gestor, chocolate, cupomMinimo);
-        
-        caso4_CompraComCupomValorMinimoAtingido(gestor, smartphone, cupomMinimo);
-        
-        caso5_CompraComCupomQuantidadeLimitadaDisponivel(gestor, calca, cupomLimitado);
-        
+        caso1_CompraSemCupom(gestor, calca, chocolate);       
+        caso2_CompraComCupom10Valido(gestor, calca, chocolate, cupomDesconto);       
+        caso3_CompraComCupomValorMinimoNaoAtingido(gestor, chocolate, cupomMinimo1);      
+        caso4_CompraComCupomValorMinimoAtingido(gestor, smartphone, cupomMinimo2);     
+        caso5_CompraComCupomQuantidadeLimitadaDisponivel(gestor, calca, cupomLimitado);     
         caso6_CompraComQuantidadeLimitadaTotalmenteUtilizado(gestor, calca, cupomLimitado);
     }
     
@@ -117,7 +113,7 @@ public class ComercioEletronico
         System.out.println("\n\n\n(6) Cupom de quantidade limitada já foi totalmente utilizado.");
         cupomLimitado.utilizarCupom();
         List<Produto> compra = Arrays.asList(calca);
-        Venda venda = new Venda(106, compra, cupomLimitado);
+        Venda venda = new Venda(06, compra, cupomLimitado);
 
         gestor.adicionarVenda(venda);
         venda.exibirResumoProdutosComprados();        
