@@ -12,6 +12,7 @@ public class CupomQuantidadeLimitada extends Cupom
     {
         super(id, percentualDesconto, ativo);
         this.utilizacoesAtuais = utilizacoesAtuais;
+        this.utilizacoesAtuais = 0;      
     }
 
     public boolean atingiuMaximoUtilizacoes() 
@@ -28,7 +29,6 @@ public class CupomQuantidadeLimitada extends Cupom
         else
         {
             this.ativo = false;
-        }
-           
+        }         
     }
 }

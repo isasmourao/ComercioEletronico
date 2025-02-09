@@ -6,25 +6,24 @@ import java.time.format.DateTimeParseException;
 
 public class Alimento extends Produto
 {
-    public String dataValidade;
-    
-    public Alimento(String dataValidade)
+    private String dataValidade;
+
+    public Alimento(int id, String nome, double preco, String dataValidade) 
     {
-        if (verificarSeDataValidadeEhCorreta(dataValidade))
+        super(id, nome, preco);
+        if (verificarSeDataValidadeEhCorreta(dataValidade)) 
         {
             this.dataValidade = dataValidade;
-        }
-        else
+        } 
+        else 
         {
-            // lançar alguma exception
+            throw new IllegalArgumentException("Data de validade inválida.");
         }
     }
-    
+
     private boolean verificarSeDataValidadeEhCorreta(String data) 
     {
-        // formato esperado (dd-MM-yyyy)
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
         try 
         {
             LocalDate.parse(data, formatter);

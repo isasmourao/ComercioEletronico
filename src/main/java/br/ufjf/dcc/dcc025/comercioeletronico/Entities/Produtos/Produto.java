@@ -3,18 +3,35 @@ package br.ufjf.dcc.dcc025.comercioeletronico.Entities.Produtos;
 
 public abstract class Produto 
 {
-    protected int id;
-    protected String nome;
-    protected double preco;
-    
+    private int id;
+    private String nome;
+    private double preco;
+
+    public Produto(int id, String nome, double preco) 
+    {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+    }
+
+    public int getId() 
+    {
+        return id;
+    }
+
     public String getNome() 
     {
-        return this.nome;
+        return nome;
     }
 
     public double getPreco() 
     {
-        return this.preco;
+        return preco;
+    }
+
+    public void setId(int id) 
+    {
+        this.id = id;
     }
 
     public void setNome(String nome) 
@@ -24,6 +41,14 @@ public abstract class Produto
 
     public void setPreco(double preco) 
     {
-        this.preco = preco;
+        if (preco >= 0) 
+        {
+            this.preco = preco;
+        } 
+        else 
+        {
+            throw new IllegalArgumentException("O preço não pode ser negativo.");
+        }
     }
 }
+
