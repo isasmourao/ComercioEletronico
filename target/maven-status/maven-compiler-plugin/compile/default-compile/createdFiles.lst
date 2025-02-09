@@ -1,1 +1,12 @@
+br\ufjf\dcc\dcc025\comercioeletronico\Entities\Cupons\CupomValorMinimo.class
+br\ufjf\dcc\dcc025\comercioeletronico\Entities\Cupons\CupomQuantidadeLimitada.class
+br\ufjf\dcc\dcc025\comercioeletronico\Entities\Vendas\Venda.class
+br\ufjf\dcc\dcc025\comercioeletronico\Entities\Produtos\Alimento.class
+br\ufjf\dcc\dcc025\comercioeletronico\Entities\Cupons\Cupom.class
 br\ufjf\dcc\dcc025\comercioeletronico\ComercioEletronico.class
+br\ufjf\dcc\dcc025\comercioeletronico\Entities\Produtos\Produto.class
+br\ufjf\dcc\dcc025\comercioeletronico\Exceptions\CupomInvalidoException.class
+br\ufjf\dcc\dcc025\comercioeletronico\Entities\Produtos\Eletronico.class
+br\ufjf\dcc\dcc025\comercioeletronico\Entities\Produtos\Roupa.class
+br\ufjf\dcc\dcc025\comercioeletronico\Entities\Vendas\Interface\Relatorio.class
+br\ufjf\dcc\dcc025\comercioeletronico\Entities\Vendas\GestorVendas.class

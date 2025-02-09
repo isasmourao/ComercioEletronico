@@ -1,13 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.ufjf.dcc.dcc025.comercioeletronico.Entities.Cupons;
 
-/**
- *
- * @author isabe
- */
-public class Cupom {
+import br.ufjf.dcc.dcc025.comercioeletronico.Exceptions.CupomInvalidoException;
+
+public class Cupom 
+{
+    public int id;
+    public double percentualDesconto;
+    public boolean ativo;
     
+    public Cupom(){}
+    
+    public Cupom(int id, double percentualDesconto, boolean ativo) throws CupomInvalidoException
+    {
+        this.id = id;
+        if (!percentualDescontoEhValido(percentualDesconto))
+            throw new CupomInvalidoException("Percentual de desconto aplicado não é válido!");
+        
+        this.percentualDesconto = percentualDesconto;    
+        this.ativo = ativo;
+    }
+    
+    private boolean percentualDescontoEhValido(double percentualDesconto)
+    {
+        return percentualDesconto >= 0 && percentualDesconto <= 100;        
+    }
 }
+

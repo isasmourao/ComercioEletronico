@@ -1,13 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.ufjf.dcc.dcc025.comercioeletronico.Entities.Cupons;
 
-/**
- *
- * @author isabe
- */
-public class CupomValorMinimo {
-    
+import br.ufjf.dcc.dcc025.comercioeletronico.Exceptions.CupomInvalidoException;
+
+
+public class CupomValorMinimo extends Cupom
+{
+    public double valorMinimo = 200;
+
+    public CupomValorMinimo(int id, double percentualDesconto, boolean ativo, double valorMinimo) throws CupomInvalidoException 
+    {
+        super(id, percentualDesconto, ativo);
+        this.valorMinimo = valorMinimo;
+    }
+  
+    public boolean valorMinimoAtingido(double valorMinimo)
+    {
+        return valorMinimo >= this.valorMinimo;
+    }
 }
