@@ -22,7 +22,7 @@ public class ComercioEletronico
             GestorVendas gestor = new GestorVendas();
             gerarTesteNaMain(gestor);
             
-            System.out.println("\n>>> GERANDO RELATÓRIOS <<<");
+            System.out.println("\n\n\n>>> GERANDO RELATÓRIOS <<<");
             gestor.gerarRelatorioVendas();
             gestor.listarCuponsAtivos();
         }
@@ -61,7 +61,7 @@ public class ComercioEletronico
     
     private static void caso1_CompraSemCupom(GestorVendas gestor, Produto calca, Produto chocolate)
     {
-        System.out.println("\n(1) Compra sem cupom");
+        System.out.println("\n\n\n(1) Compra sem cupom");
         List<Produto> compra = Arrays.asList(calca, chocolate);
         Venda venda = new Venda(01, compra, null);
         
@@ -71,7 +71,7 @@ public class ComercioEletronico
     
     private static void caso2_CompraComCupom10Valido(GestorVendas gestor, Produto calca, Produto chocolate, Cupom cupomDesconto)
     {
-        System.out.println("\n(2) Compra com cupom de 10% válido");
+        System.out.println("\n\n\n(2) Compra com cupom de 10% válido");
         List<Produto> compra = Arrays.asList(calca, chocolate);
         Venda venda = new Venda(02, compra, cupomDesconto);
         
@@ -81,7 +81,7 @@ public class ComercioEletronico
         
     private static void caso3_CompraComCupomValorMinimoNaoAtingido(GestorVendas gestor, Produto chocolate, Cupom cupomMinimo)
     {
-        System.out.println("\n(3) Cupom de valor mínimo não atingido");
+        System.out.println("\n\n\n(3) Cupom de valor mínimo não atingido");
         List<Produto> compra = Arrays.asList(chocolate);
         Venda venda = new Venda(03, compra, cupomMinimo);
         
@@ -91,7 +91,7 @@ public class ComercioEletronico
     
     private static void caso4_CompraComCupomValorMinimoAtingido(GestorVendas gestor, Produto smartphone, Cupom cupomMinimo)
     {
-        System.out.println("\n(4) Cupom de valor mínimo atingido");
+        System.out.println("\n\n\n(4) Cupom de valor mínimo atingido");
         List<Produto> compra = Arrays.asList(smartphone);
         Venda venda = new Venda(04, compra, cupomMinimo);
         
@@ -101,7 +101,7 @@ public class ComercioEletronico
     
     private static void caso5_CompraComCupomQuantidadeLimitadaDisponivel(GestorVendas gestor, Produto calca, CupomQuantidadeLimitada cupomLimitado)
     {
-        System.out.println("\n(5) Cupom de quantidade limitada ainda disponível.");
+        System.out.println("\n\n\n(5) Cupom de quantidade limitada ainda disponível.");
         List<Produto> compra = Arrays.asList(calca);
         Venda venda = new Venda(05, compra, cupomLimitado);
         cupomLimitado.utilizarCupom();
@@ -113,8 +113,8 @@ public class ComercioEletronico
     
     private static void caso6_CompraComQuantidadeLimitadaTotalmenteUtilizado(GestorVendas gestor, Produto calca, CupomQuantidadeLimitada cupomLimitado)
     {
-        // cupom.utilizacoesAtuais = 3; // Simulando cupom esgotado
-        System.out.println("\n(6) Cupom de quantidade limitada já foi totalmente utilizado.");
+        cupomLimitado.utilizacoesAtuais = 3; // Simulando cupom esgotado
+        System.out.println("\n\n\n(6) Cupom de quantidade limitada já foi totalmente utilizado.");
         cupomLimitado.utilizarCupom();
         List<Produto> compra = Arrays.asList(calca);
         Venda venda = new Venda(106, compra, cupomLimitado);

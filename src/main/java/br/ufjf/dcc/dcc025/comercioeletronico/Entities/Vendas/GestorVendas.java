@@ -1,7 +1,6 @@
 package br.ufjf.dcc.dcc025.comercioeletronico.Entities.Vendas;
 
 import br.ufjf.dcc.dcc025.comercioeletronico.Entities.Cupons.Cupom;
-import br.ufjf.dcc.dcc025.comercioeletronico.Entities.Produtos.Produto;
 import br.ufjf.dcc.dcc025.comercioeletronico.Entities.Vendas.Interface.Relatorio;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class GestorVendas implements Relatorio
         System.out.println("""
                            ======================================
                            >> RELATÓRIO DE VENDAS
-                           ======================================
+                           
                            """);
 
         double totalArrecadado = 0;
@@ -41,23 +40,11 @@ public class GestorVendas implements Relatorio
 
         for (Venda venda : vendas)
         {
-            double totalVenda = 0;
-
-            for (Produto produto : venda.produtosComprados) 
-            {
-                totalVenda += produto.getPreco();
-            }
-
-            if (venda.cupomAplicado != null && venda.cupomAplicado.ativo)
-            {
-                totalVenda -= totalVenda * (venda.cupomAplicado.percentualDesconto / 100);
-            }
-
-            totalArrecadado += totalVenda;
+            totalArrecadado += venda.calcularTotal();
         }
 
         System.out.println(">> Total de vendas realizadas: " + totalVendas);
-        System.out.println(">> Valor total arrecadado: R$ " + totalArrecadado);
+        System.out.println(">> Valor total arrecadado: R$ " + String.format("%.2f", totalArrecadado));
         System.out.println("======================================");
     }
     
@@ -67,7 +54,7 @@ public class GestorVendas implements Relatorio
         System.out.println("""
                            ======================================
                            >> CUPONS ATIVOS DISPONÍVEIS
-                           ======================================
+                           
                            """);
 
         boolean temCuponsAtivos = false;

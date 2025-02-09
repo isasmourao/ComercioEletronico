@@ -1,7 +1,10 @@
 package br.ufjf.dcc.dcc025.comercioeletronico.Entities.Vendas;
 
 import br.ufjf.dcc.dcc025.comercioeletronico.Entities.Cupons.Cupom;
+import br.ufjf.dcc.dcc025.comercioeletronico.Entities.Cupons.CupomQuantidadeLimitada;
+import br.ufjf.dcc.dcc025.comercioeletronico.Entities.Cupons.CupomValorMinimo;
 import br.ufjf.dcc.dcc025.comercioeletronico.Entities.Produtos.Produto;
+
 import java.util.List;
 
 public class Venda 
@@ -17,26 +20,45 @@ public class Venda
         this.cupomAplicado = cupomAplicado;
     }
 
-    // Método para calcular o total da compra sem desconto
-    public double calcularTotal()
+    public double calcularTotal() 
     {
-        double total = 0;
+        double total = 0.0;
+        
         for (Produto produto : produtosComprados) 
         {
             total += produto.getPreco();
         }
-        return total;
-    }
 
-    // Método para calcular o total com desconto (se houver)
-    public double calcularTotalComDesconto() 
-    {
-        double total = calcularTotal();
         if (cupomAplicado != null && cupomAplicado.ativo) 
         {
-            double desconto = total * (cupomAplicado.percentualDesconto / 100);
-            return total - desconto;
+            double desconto = 0.0;
+
+            switch (cupomAplicado)
+            {
+                case CupomQuantidadeLimitada cupom -> 
+                {
+                    if (!cupom.atingiuMaximoUtilizacoes())
+                    {
+                        desconto = total * (cupom.percentualDesconto / 100);
+                        cupom.utilizarCupom();
+                    }
+                }
+                case CupomValorMinimo cupom -> 
+                {
+                    if (cupom.valorMinimoAtingido(total))
+                    {
+                        desconto = total * (cupom.percentualDesconto / 100);
+                    }
+                }
+                default -> 
+                {
+                    desconto = total * (cupomAplicado.percentualDesconto / 100);
+                }
+            }
+
+            total -= desconto;
         }
+
         return total;
     }
 
@@ -47,33 +69,34 @@ public class Venda
                            >> RESUMO DE PRODUTOS COMPRADOS
                            ======================================
                            """);
-        
+
         System.out.println(">> ID da venda: " + this.id);
         System.out.println(">> Produtos comprados: ");
-        
-        double total = calcularTotal();
-        
+
         for (Produto produto : produtosComprados) 
         {
-            System.out.println("   - " + produto.getNome() + " | Preço: R$ " + produto.getPreco());
+            System.out.println("   - " + produto.getNome() + " | Preço: R$ " + String.format("%.2f", produto.getPreco()));
         }
-        
+
         System.out.println("--------------------------------------");
-        
+
+        double totalSemDesconto = calcularTotal();
+        double descontoAplicado = 0.0;
+
         if (cupomAplicado != null && cupomAplicado.ativo) 
         {
-            double desconto = total - calcularTotalComDesconto();
+            descontoAplicado = (totalSemDesconto * (cupomAplicado.percentualDesconto / 100));
             System.out.println(">> Cupom aplicado: " + cupomAplicado.percentualDesconto + "% de desconto");
-            System.out.println(">> Valor do desconto: R$ " + desconto);
-            System.out.println(">> Total com desconto: R$ " + calcularTotalComDesconto());
+            System.out.println(">> Valor do desconto: R$ " + String.format("%.2f", descontoAplicado));
         } 
         else 
         {
             System.out.println(">> Nenhum cupom aplicado.");
-            System.out.println(">> Total final: R$ " + total);
         }
 
+        System.out.println(">> Total final: R$ " + String.format("%.2f", totalSemDesconto - descontoAplicado));
         System.out.println("======================================");
     }
 }
+
 
